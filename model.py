@@ -53,6 +53,7 @@ class Rating(db.Model):
 
     def __repr__(self):
         return f'<Rating rating_id={ self.rating_id } score={ self.score } >'
+        
 
 
 
