@@ -20,7 +20,7 @@ class User(db.Model):
     def __repr__(self):
         return f'<User user_id={ self.user_id } email={ self.email }>'
 
-class Movie(db.model):
+class Movie(db.Model):
     """ Create Movie class"""
 
     __tablename__ = "movies"
@@ -36,7 +36,7 @@ class Movie(db.model):
     def __repr__(self):
         return f'<Movie movie_id={ self.movie_id } title={ self.title } >'
 
-class Rating(db.model):
+class Rating(db.Model):
     """a movie rating."""
 
     __tablename__ = "ratings"
@@ -48,8 +48,13 @@ class Rating(db.model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
 
+    movie = db.relationship('Movie', backref='ratings')
+    user = db.relationship('User', backref='ratings')
+
     def __repr__(self):
         return f'<Rating rating_id={ self.rating_id } score={ self.score } >'
+
+
 
 
 def connect_to_db(flask_app, db_uri='postgresql:///ratings', echo=True):
